@@ -1866,7 +1866,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 4ded44d0f00335844887793773ca6824, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -1919,7 +1919,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: cc9c450f8290e6a47906a0fe72a745d3, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -3937,6 +3937,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1187332215}
+  - component: {fileID: 1187332216}
   m_Layer: 0
   m_Name: video9
   m_TagString: Untagged
@@ -3963,6 +3964,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1187332216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187332214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af095ef7966c4e4cabd5a3f55f56abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  part1: {fileID: 1318215923}
+  part2: {fileID: 504650235}
+  uld1dol: {fileID: 1913532740}
+  uld2dol: {fileID: 475183241}
+  uldTransform: {fileID: 6912797602969232512}
+  uld2Transform: {fileID: 6912797602668992341}
+  uld3Transform: {fileID: 6912797602536065386}
+  uld4Transform: {fileID: 1596807288}
+  slTransform: {fileID: 893489243679245408}
+  sl2Transform: {fileID: 780151416}
+  dolTransform: {fileID: 5291924705651273027}
+  dol2Transform: {fileID: 5291924705949622440}
+  dolLoadedTransform: {fileID: 5291924704394412551}
 --- !u!1 &1199256779 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5646720550371744157, guid: 727c0dbfc0069484bba32db88212d252,
@@ -4956,7 +4982,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 9b697a6c77f181a468270e78444493d3, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
