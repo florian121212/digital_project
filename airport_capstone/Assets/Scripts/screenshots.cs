@@ -7,11 +7,30 @@ public class screenshots : MonoBehaviour
 {
     int resWidth;
     int resHeight;
+    int type;
     public static int fname;
+    List<GameObject> objectsToLabel = new List<GameObject>();
 
     void Start()
     {
-        fname = 157;
+        fname = 0;
+        string[] tagsToInclude = new string[] { "ULD", "Door", "EmptyDolly", "Speedloader", "Highloader", "Pallet" };
+
+        foreach (string tag in tagsToInclude)
+        {
+            GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag(tag);
+            objectsToLabel.AddRange(objectsWithTag);
+        }
+        StartCoroutine(periodicAction());
+    }
+
+    IEnumerator periodicAction()
+    {
+        while (true)
+        {
+            takePics();
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     public static string ScreenShotName(int width, int height)
@@ -21,29 +40,16 @@ public class screenshots : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        if (Input.GetKeyUp("k"))
-        {
-            gameObject.GetComponent<Camera>().enabled = false;
-            takePics();
-        }
-    }
-
     public float getHeightWidth(float actual_value, float point1, float point2)
     {
         float tmp_value = Mathf.Abs(point1 - point2);
-
 
         if (actual_value < tmp_value)
         {
             actual_value = tmp_value;
         }
-
         return actual_value;
     }
-
-    
 
     public void takePics()
     {
@@ -51,7 +57,7 @@ public class screenshots : MonoBehaviour
         {
             Camera cam = go.GetComponent<Camera>();
 
-            int multiplier = 2; // Adjust the multiplier as needed
+            int multiplier = 2; 
             resWidth = cam.pixelWidth * multiplier;
             resHeight = cam.pixelHeight * multiplier;
 
@@ -79,29 +85,20 @@ public class screenshots : MonoBehaviour
             string filename = ScreenShotName(resWidth, resHeight);
             System.IO.File.WriteAllBytes(filename, bytes);
 
-            // Get the label of one ULD
-            GameObject[] objectsToLabel = GameObject.FindGameObjectsWithTag("ULD"); ;
-
             foreach(GameObject objectToLabel in objectsToLabel)
             {
                 var renderer = objectToLabel.GetComponent<Renderer>();
 
-                Vector3 ULD_center = renderer.bounds.center;
-                
+                Vector3 obj_center = renderer.bounds.center;
+                Vector3 viewPos = cam.WorldToViewportPoint(obj_center);
+                Vector3 obj_extents = renderer.bounds.extents;
 
-                //Debug.DrawRay(cam.transform.position, (ULD_center - cam.transform.position), Color.yellow);
-
-                Vector3 viewPos = cam.WorldToViewportPoint(ULD_center);
-                //print(viewPos);
-
-                Vector3 ULD_extents = renderer.bounds.extents;
-
-                float x1 = ULD_center.x + ULD_extents.x;
-                float x2 = ULD_center.x - ULD_extents.x;
-                float y1 = ULD_center.y + ULD_extents.y;
-                float y2 = ULD_center.y - ULD_extents.y;
-                float z1 = ULD_center.z + ULD_extents.z;
-                float z2 = ULD_center.z - ULD_extents.z;
+                float x1 = obj_center.x + obj_extents.x;
+                float x2 = obj_center.x - obj_extents.x;
+                float y1 = obj_center.y + obj_extents.y;
+                float y2 = obj_center.y - obj_extents.y;
+                float z1 = obj_center.z + obj_extents.z;
+                float z2 = obj_center.z - obj_extents.z;
 
                 Vector3 point1 = new Vector3(x1, y1, z1);
                 Vector3 point2 = new Vector3(x1, y1, z2);
@@ -123,7 +120,6 @@ public class screenshots : MonoBehaviour
 
                 float final_width = Mathf.Abs(screenPoint1.x - screenPoint2.x);
                 float final_height = Mathf.Abs(screenPoint1.y - screenPoint2.y);
-
 
                 final_width = getHeightWidth(final_width, screenPoint1.x, screenPoint3.x);
                 final_height = getHeightWidth(final_height, screenPoint1.y, screenPoint3.y);
@@ -180,11 +176,6 @@ public class screenshots : MonoBehaviour
                 final_width = getHeightWidth(final_width, screenPoint7.x, screenPoint8.x);
                 final_height = getHeightWidth(final_height, screenPoint7.y, screenPoint8.y);
 
-
-                //print(final_height);
-                //print(final_width);
-
-
                 if (viewPos.x <= 1 && viewPos.x >= 0 && viewPos.y <= 1 && viewPos.y >= 0 && final_height >= 0.01 && final_width >= 0.01)
                 {
 
@@ -192,32 +183,52 @@ public class screenshots : MonoBehaviour
                     RaycastHit hit;
 
                     // Perform the raycast
-                    if (Physics.Raycast(cam.transform.position, ULD_center - cam.transform.position, out hit))
+                    if (Physics.Raycast(cam.transform.position, obj_center - cam.transform.position, out hit))
                     {
-                        if(hit.transform.gameObject.tag == "ULD")
+                        string labelname = Application.dataPath + "/labels/" + fname.ToString() + ".txt";
+
+                        if (objectToLabel.CompareTag("ULD"))
                         {
-                            string labelname = Application.dataPath + "/labels/" + fname.ToString() + ".txt";
-
-                            using (StreamWriter writer = new StreamWriter(labelname, true))
-                            {
-                                string line = "0 " + viewPos.x.ToString() + " " + (1 - viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
-                                writer.WriteLine(line);
-                            }
+                            type = 0;
                         }
-                    }
 
-                    
+                        if (objectToLabel.CompareTag("Door"))
+                        {
+                            type = 1;
+                        }
+
+                        if (objectToLabel.CompareTag("EmptyDolly"))
+                        {
+                            type = 2;
+                        }
+
+                        if (objectToLabel.CompareTag("Speedloader"))
+                        {
+                            type = 3;
+                        }
+
+                        if (objectToLabel.CompareTag("Highloader"))
+                        {
+                            type = 4;
+                        }
+
+                        if (objectToLabel.CompareTag("TUG"))
+                        {
+                            type = 5;
+                        }
+                        if (objectToLabel.CompareTag("Pallet"))
+                        {
+                            type = 6;
+                        }
+
+                        using (StreamWriter writer = new StreamWriter(labelname, true))
+                        {
+                            string line = type.ToString() + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
+                            writer.WriteLine(line);
+                        }
+                    }   
                 }
-
             }
-
-            /*Vector3 screenMin = cam.WorldToViewportPoint(renderer.bounds.min);
-            Vector3 screenMax = cam.WorldToViewportPoint(renderer.bounds.max);
-
-            float screenWidth = screenMax.x - screenMin.x;
-            float screenHeight = screenMax.y - screenMin.y;*/
-
-
             cam.targetTexture = null;
             RenderTexture.active = null;
             rt.Release();

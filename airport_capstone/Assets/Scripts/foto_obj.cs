@@ -241,7 +241,7 @@ public class foto_obj : MonoBehaviour
 
                 using (StreamWriter writer = new StreamWriter(labelname, false))
                 {
-                    string line = type + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
+                    string line = type.ToString() + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
                     writer.WriteLine(line);
                 }
             }
