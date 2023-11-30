@@ -7,9 +7,11 @@ public class video9 : MonoBehaviour
 { 
     public PlayableDirector part1;
     public PlayableDirector part2;
-    //public PlayableDirector part3;
+    public PlayableDirector part3;
     public PlayableDirector uld1dol;
     public PlayableDirector uld2dol;
+    public PlayableDirector uld3dol;
+    public PlayableDirector uld4dol;
     public Transform uldTransform;
     public Transform uld2Transform;
     public Transform uld3Transform;
@@ -73,16 +75,25 @@ public class video9 : MonoBehaviour
         load3 = false;
         sl1 = false;
         uld1dol.Play();
-        yield return new WaitForSeconds(0.5f);
+        while(uld2dol.state == PlayState.Playing)
+        {
+            yield return null;
+        }
         load2 = true;
-        yield return new WaitForSeconds(1.5f);
+        uld4dol.Play();
+        while(uld1dol.state == PlayState.Playing)
+        {
+            yield return null;
+        }
         load1 = true;
-        yield return new WaitForSeconds(1.5f);
-        load4 = true;
-        yield return new WaitForSeconds(1.5f);
+        uld3dol.Play();
+        while(uld3dol.state == PlayState.Playing)
+        {
+            yield return null;
+        }
         load3 = true;
-        //part3.Play();
-        
+        load4 = true;
+        part3.Play();
     }
 
     void Update()
@@ -119,20 +130,38 @@ public class video9 : MonoBehaviour
         if(load1 && !sl1)
         {
             float offset1 = 5.15f;
-            float angle = dol2Transform.eulerAngles.y * Mathf.Deg2Rad;
-            float rel_z = -Mathf.Cos(angle) * offset1;
-            float rel_x = -Mathf.Sin(angle) * offset1;
+            float angle1 = dol2Transform.eulerAngles.y * Mathf.Deg2Rad;
+            float rel_z = -Mathf.Cos(angle1) * offset1;
+            float rel_x = -Mathf.Sin(angle1) * offset1;
             uldTransform.position = dol2Transform.position + new Vector3(rel_x, -0.25f, rel_z);
             uldTransform.rotation = dol2Transform.rotation * rot_offset;   
         }
         if(load2 && !sl2)
         {
-            float offset2 = 10.53f;
-            float angle = dol2Transform.eulerAngles.y * Mathf.Deg2Rad;
-            float rel_z = -Mathf.Cos(angle) * offset2;
-            float rel_x = -Mathf.Sin(angle) * offset2;
-            uld2Transform.position = dol2Transform.position + new Vector3(rel_x, -0.25f, rel_z);
-            uld2Transform.rotation = dol2Transform.rotation * rot_offset;
+            float offset2 = 5.15f;
+            float angle2 = dolTransform.eulerAngles.y * Mathf.Deg2Rad;
+            float rel_z2 = -Mathf.Cos(angle2) * offset2;
+            float rel_x2 = -Mathf.Sin(angle2) * offset2;
+            uld2Transform.position = dolTransform.position + new Vector3(rel_x2, -0.25f, rel_z2);
+            uld2Transform.rotation = dolTransform.rotation * Quaternion.Euler(0,90,0);;
+        }
+        if(load3 && !sl1)
+        {
+            float offset3 = 10.53f;
+            float angle3 = dol2Transform.eulerAngles.y * Mathf.Deg2Rad;
+            float rel_z3 = -Mathf.Cos(angle3) * offset3;
+            float rel_x3 = -Mathf.Sin(angle3) * offset3;
+            uld3Transform.position = dol2Transform.position + new Vector3(rel_x3, -0.25f, rel_z3);
+            uld3Transform.rotation = dol2Transform.rotation * rot_offset;   
+        }
+        if(load4 && !sl2)
+        {
+            float offset4 = 10.53f;
+            float angle4 = dolTransform.eulerAngles.y * Mathf.Deg2Rad;
+            float rel_z4 = -Mathf.Cos(angle4) * offset4;
+            float rel_x4 = -Mathf.Sin(angle4) * offset4;
+            uld4Transform.position = dolTransform.position + new Vector3(rel_x4, -0.25f, rel_z4);
+            uld4Transform.rotation = dolTransform.rotation * Quaternion.Euler(0,90,0);;
         }
     }
 }

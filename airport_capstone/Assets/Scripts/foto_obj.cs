@@ -20,7 +20,7 @@ public class foto_obj : MonoBehaviour
     {
         float x, y, z, xcam, ycam, zcam;
         Transform target;
-        int nb_pics = 100;
+        int nb_pics = 150;
 
         for (int j=0; j < nb_pics; j++)
         {
