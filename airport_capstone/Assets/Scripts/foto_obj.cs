@@ -238,6 +238,10 @@ public class foto_obj : MonoBehaviour
                 {
                     type = 6;
                 }
+                if (obj.CompareTag("HighloaderDown"))
+                {
+                    type = 7;
+                }
 
                 using (StreamWriter writer = new StreamWriter(labelname, false))
                 {

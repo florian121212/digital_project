@@ -22,6 +22,7 @@ public class video5 : MonoBehaviour
     public Transform dolLoadedTransform;
     public Transform palletTransform;
     public Transform pallet2Transform;
+    public GameObject hl;
 
     private bool load1 = false;
     private bool load2 = false;
@@ -60,7 +61,9 @@ public class video5 : MonoBehaviour
         part1.Play();
         yield return new WaitForSeconds(6.5f);
         loadpal1 = true;
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(0.5f);
+        hl.tag = "HighloaderDown";
+        yield return new WaitForSeconds(2.0f);
         loadpal2 = true;
         while(part1.state == PlayState.Playing)
         {
@@ -71,12 +74,16 @@ public class video5 : MonoBehaviour
         palletTransform.parent = null;
         pallet2Transform.parent = null;
         part2.Play();
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.0f);
+        hl.tag = "Highloader";
+        yield return new WaitForSeconds(2.0f);
         load1 = false;
         uld1dol.Play();
         yield return new WaitForSeconds(2.0f);
         load2 = false;
         uld2dol.Play();
+        yield return new WaitForSeconds(2.0f);
+        hl.tag = "HighloaderDown";
         while(uld2dol.state == PlayState.Playing)
         {
             yield return null;
