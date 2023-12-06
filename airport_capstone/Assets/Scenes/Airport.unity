@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17617732, g: 0.22049025, b: 0.3028159, a: 1}
+  m_IndirectSpecularColor: {r: 0.17617714, g: 0.22049013, b: 0.3028156, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10141,10 +10141,35 @@ PrefabInstance:
     - target: {fileID: 5646720550371744157, guid: 727c0dbfc0069484bba32db88212d252,
         type: 3}
       propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7332853702669374091, guid: 727c0dbfc0069484bba32db88212d252,
+        type: 3}
+      propertyPath: m_TagString
       value: Speedloader
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 727c0dbfc0069484bba32db88212d252, type: 3}
+--- !u!1 &1954497848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7332853702669374091, guid: 727c0dbfc0069484bba32db88212d252,
+    type: 3}
+  m_PrefabInstance: {fileID: 1954497847}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1954497849
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954497848}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1282116120703419508, guid: b7e7386d8e4c592498a48b8b9129b71f, type: 3}
 --- !u!1 &1969898788
 GameObject:
   m_ObjectHideFlags: 0
@@ -12284,6 +12309,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5291924705651273027}
     m_Modifications:
+    - target: {fileID: 1606180797, guid: a64ebaceaa566614cbcf21c268e1209d, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 657870811371009911, guid: a64ebaceaa566614cbcf21c268e1209d,
+        type: 3}
+      propertyPath: m_TagString
+      value: EmptyDolly
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068624557793539114, guid: a64ebaceaa566614cbcf21c268e1209d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5975999588977769540, guid: a64ebaceaa566614cbcf21c268e1209d,
         type: 3}
       propertyPath: m_Name
@@ -12292,7 +12331,7 @@ PrefabInstance:
     - target: {fileID: 5975999588977769540, guid: a64ebaceaa566614cbcf21c268e1209d,
         type: 3}
       propertyPath: m_TagString
-      value: EmptyDolly
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7256524053910949463, guid: a64ebaceaa566614cbcf21c268e1209d,
         type: 3}
@@ -12831,6 +12870,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5291924705949622440}
     m_Modifications:
+    - target: {fileID: 657870811371009911, guid: a64ebaceaa566614cbcf21c268e1209d,
+        type: 3}
+      propertyPath: m_TagString
+      value: EmptyDolly
+      objectReference: {fileID: 0}
     - target: {fileID: 5975999588977769540, guid: a64ebaceaa566614cbcf21c268e1209d,
         type: 3}
       propertyPath: m_Name
@@ -12839,7 +12883,7 @@ PrefabInstance:
     - target: {fileID: 5975999588977769540, guid: a64ebaceaa566614cbcf21c268e1209d,
         type: 3}
       propertyPath: m_TagString
-      value: EmptyDolly
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7256524053910949463, guid: a64ebaceaa566614cbcf21c268e1209d,
         type: 3}
@@ -12988,10 +13032,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5291924704141977445}
     m_Modifications:
+    - target: {fileID: 1913665959909003286, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
+        type: 3}
+      propertyPath: m_TagString
+      value: EmptyDolly
+      objectReference: {fileID: 0}
     - target: {fileID: 4701913040404716325, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
         type: 3}
       propertyPath: m_Name
       value: P_Dolly_AAK (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4701913040404716325, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8582687880337385782, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
         type: 3}
@@ -14377,10 +14431,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5291924704394412551}
     m_Modifications:
+    - target: {fileID: 1913665959909003286, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
+        type: 3}
+      propertyPath: m_TagString
+      value: EmptyDolly
+      objectReference: {fileID: 0}
     - target: {fileID: 4701913040404716325, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
         type: 3}
       propertyPath: m_Name
       value: P_Dolly_AAK (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4701913040404716325, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8582687880337385782, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
         type: 3}
@@ -15976,10 +16040,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5291924704141977445}
     m_Modifications:
+    - target: {fileID: 1418509676517243100, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913665959909003286, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
+        type: 3}
+      propertyPath: m_TagString
+      value: EmptyDolly
+      objectReference: {fileID: 0}
+    - target: {fileID: 3159599991929508683, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 4701913040404716325, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
         type: 3}
       propertyPath: m_Name
       value: P_Dolly_AAK (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4701913040404716325, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8582687880337385782, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
         type: 3}
@@ -18723,6 +18807,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5291924705651273027}
     m_Modifications:
+    - target: {fileID: 1606180797, guid: a64ebaceaa566614cbcf21c268e1209d, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 657870811371009911, guid: a64ebaceaa566614cbcf21c268e1209d,
+        type: 3}
+      propertyPath: m_TagString
+      value: EmptyDolly
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068624557793539114, guid: a64ebaceaa566614cbcf21c268e1209d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5975999588977769540, guid: a64ebaceaa566614cbcf21c268e1209d,
         type: 3}
       propertyPath: m_Name
@@ -18731,7 +18829,7 @@ PrefabInstance:
     - target: {fileID: 5975999588977769540, guid: a64ebaceaa566614cbcf21c268e1209d,
         type: 3}
       propertyPath: m_TagString
-      value: EmptyDolly
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7256524053910949463, guid: a64ebaceaa566614cbcf21c268e1209d,
         type: 3}
@@ -18787,6 +18885,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8986470550914900029, guid: a64ebaceaa566614cbcf21c268e1209d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7605869818270470552, guid: a64ebaceaa566614cbcf21c268e1209d, type: 3}
@@ -19039,10 +19142,35 @@ PrefabInstance:
     - target: {fileID: 5646720550371744157, guid: 727c0dbfc0069484bba32db88212d252,
         type: 3}
       propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7332853702669374091, guid: 727c0dbfc0069484bba32db88212d252,
+        type: 3}
+      propertyPath: m_TagString
       value: Speedloader
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 727c0dbfc0069484bba32db88212d252, type: 3}
+--- !u!1 &5291924705750304584 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7332853702669374091, guid: 727c0dbfc0069484bba32db88212d252,
+    type: 3}
+  m_PrefabInstance: {fileID: 5291924705750304583}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &5291924705750304585
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5291924705750304584}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1282116120703419508, guid: b7e7386d8e4c592498a48b8b9129b71f, type: 3}
 --- !u!1001 &5291924705806508711
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19249,10 +19377,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5291924704394412551}
     m_Modifications:
+    - target: {fileID: 1913665959909003286, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
+        type: 3}
+      propertyPath: m_TagString
+      value: EmptyDolly
+      objectReference: {fileID: 0}
     - target: {fileID: 4701913040404716325, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
         type: 3}
       propertyPath: m_Name
       value: P_Dolly_AAK (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4701913040404716325, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8582687880337385782, guid: 2e9a8d3be2fa3d5489fa7eb4ce3120b5,
         type: 3}
@@ -19442,8 +19580,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_SpeedLoader_Loaded
       objectReference: {fileID: 0}
+    - target: {fileID: 7332853702669374091, guid: 727c0dbfc0069484bba32db88212d252,
+        type: 3}
+      propertyPath: m_TagString
+      value: Speedloader
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 727c0dbfc0069484bba32db88212d252, type: 3}
+--- !u!1 &5291924705957649124 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7332853702669374091, guid: 727c0dbfc0069484bba32db88212d252,
+    type: 3}
+  m_PrefabInstance: {fileID: 5291924705957649123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &5291924705957649125
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5291924705957649124}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1282116120703419508, guid: b7e7386d8e4c592498a48b8b9129b71f, type: 3}
 --- !u!1001 &5291924706022075738
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19625,6 +19788,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5291924705949622440}
     m_Modifications:
+    - target: {fileID: 657870811371009911, guid: a64ebaceaa566614cbcf21c268e1209d,
+        type: 3}
+      propertyPath: m_TagString
+      value: EmptyDolly
+      objectReference: {fileID: 0}
     - target: {fileID: 5975999588977769540, guid: a64ebaceaa566614cbcf21c268e1209d,
         type: 3}
       propertyPath: m_Name
@@ -19633,7 +19801,7 @@ PrefabInstance:
     - target: {fileID: 5975999588977769540, guid: a64ebaceaa566614cbcf21c268e1209d,
         type: 3}
       propertyPath: m_TagString
-      value: EmptyDolly
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7256524053910949463, guid: a64ebaceaa566614cbcf21c268e1209d,
         type: 3}
