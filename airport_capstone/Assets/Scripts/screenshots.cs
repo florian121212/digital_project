@@ -93,7 +93,7 @@ public class screenshots : MonoBehaviour
         {
             foreach (GameObject go in GameObject.FindGameObjectsWithTag("picCam")) //for only one camera, comment this line
             {
-                Camera cam = go.GetComponent<Camera>();
+                Camera cam = go.GetComponent<Camera>(); // comment for only one camera
                 //Camera cam = GetComponent<Camera>();for  only one camera 
                 int multiplier = 4; // Adjust the multiplier as needed
                 resWidth = cam.pixelWidth * multiplier;
@@ -214,7 +214,7 @@ public class screenshots : MonoBehaviour
                         final_width = getHeightWidth(final_width, screenPoint7.x, screenPoint8.x);
                         final_height = getHeightWidth(final_height, screenPoint7.y, screenPoint8.y);
                         
-                        if (viewPos.x <= 1 && viewPos.x >= 0 && viewPos.y <= 1 && viewPos.y >= 0 && final_height >= 0.01 && final_height <= 1.5 && final_width >= 0.02 && final_width <= 1.5)
+                        if (viewPos.x <= 1 && viewPos.x >= 0 && viewPos.y <= 1 && viewPos.y >= 0 && final_height >= 0.01 && final_width >= 0.01 )
                         {
                             string labelname = Application.dataPath + "/labels/" + filenumber.ToString() + ".txt";
                             RaycastHit hit;

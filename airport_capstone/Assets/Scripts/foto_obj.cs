@@ -77,7 +77,7 @@ public class foto_obj : MonoBehaviour
 
     public void takePics(GameObject obj)
     {
-        int multiplier = 1; // Adjust the multiplier as needed
+        int multiplier = 4; // Adjust the multiplier as needed
         resWidth = cam.pixelWidth * multiplier;
         resHeight = cam.pixelHeight * multiplier;
 
@@ -205,40 +205,40 @@ public class foto_obj : MonoBehaviour
             {
                 string labelname = Application.dataPath + "/labels/" + fname.ToString() + ".txt";
 
-                if (obj.CompareTag("ULD"))
+                if (obj.CompareTag("ULD_f"))
                 {
                     type = 0;
                 }
 
-                if (obj.CompareTag("Door"))
+                if (obj.CompareTag("Door_f"))
                 {
                     type = 1;
                 }
 
-                if (obj.CompareTag("EmptyDolly"))
+                if (obj.CompareTag("EmptyDolly_f"))
                 {
                     type = 2;
                 }
 
-                if (obj.CompareTag("Speedloader"))
+                if (obj.CompareTag("Speedloader_f"))
                 {
                     type = 3;
                 }
 
-                if (obj.CompareTag("Highloader"))
+                if (obj.CompareTag("Highloader_f"))
                 {
                     type = 4;
                 }
 
-                if (obj.CompareTag("TUG"))
+                if (obj.CompareTag("TUG_f"))
                 {
                     type = 5;
                 }
-                if (obj.CompareTag("Pallet"))
+                if (obj.CompareTag("Pallet_f"))
                 {
                     type = 6;
                 }
-                if (obj.CompareTag("HighloaderDown"))
+                if (obj.CompareTag("HighloaderDown_f"))
                 {
                     type = 7;
                 }

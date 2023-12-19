@@ -17,6 +17,14 @@ TagManager:
   - Pallet
   - Plane
   - HighloaderDown
+  - Speedloader_f
+  - ULD_f
+  - Highloader_f
+  - Pallet_f
+  - EmptyDolly_f
+  - HighloaderDown_f
+  - Door_f
+  - TUG_f
   layers:
   - Default
   - TransparentFX
