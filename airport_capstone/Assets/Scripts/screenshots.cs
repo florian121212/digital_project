@@ -216,65 +216,81 @@ public class screenshots : MonoBehaviour
                         
                         if (viewPos.x <= 1 && viewPos.x >= 0 && viewPos.y <= 1 && viewPos.y >= 0 && final_height >= 0.01 && final_width >= 0.01 )
                         {
+                            bool done = false;
                             string labelname = Application.dataPath + "/labels/" + filenumber.ToString() + ".txt";
-                            RaycastHit hit;
-
-                            if (Physics.Raycast(cam.transform.position, object_center - cam.transform.position, out hit))
+                            if (objectToLabel.CompareTag("Highloader"))
                             {
+                                type = 4;
+                                done = true;
+                            }
+                            else if (objectToLabel.CompareTag("Door"))
+                            {
+                                type = 1;
+                                done = true;
+                            }
+                            else if (objectToLabel.CompareTag("HighloaderDown"))
+                            {
+                                type = 7;
+                                done = true;
+                            }
 
-                                if (hit.collider.gameObject.tag != "Plane")
+                            if (done)
+                            {
+                                using (StreamWriter writer = new StreamWriter(labelname, true))
                                 {
-                                    if (objectToLabel.CompareTag("ULD"))
-                                    {
-                                        type = 0;
-                                    }
-                                    else if (objectToLabel.CompareTag("Door"))
-                                    {
-                                        type = 1;
-                                    }
+                                    string line = type + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
+                                    writer.WriteLine(line);
+                                }
+                            }
+                            else
+                            {
+                                RaycastHit hit;
 
-                                    else if (objectToLabel.CompareTag("EmptyDolly"))
-                                    {
-                                        type = 2;
-                                    }
+                                if (Physics.Raycast(cam.transform.position, object_center - cam.transform.position, out hit))
+                                {
 
-                                    else if (objectToLabel.CompareTag("Speedloader"))
+                                    if (hit.collider.gameObject.tag != "Plane" && hit.collider.gameObject.tag != "Door")
                                     {
-                                        type = 3;
-                                    }
-                                    else if (objectToLabel.CompareTag("Highloader"))
-                                    {
-                                        type = 4;
-                                    }
-                                    else if (objectToLabel.CompareTag("TUG"))
-                                    {
-                                        type = 5;
-                                    }
-                                    else if (objectToLabel.CompareTag("Pallet"))
-                                    {
-                                        type = 6;
-                                    }
-                                    else if (objectToLabel.CompareTag("HighloaderDown"))
-                                    {
-                                        type = 7;
-                                    }
+                                        if (objectToLabel.CompareTag("ULD"))
+                                        {
+                                            type = 0;
+                                        }
 
-                                    using (StreamWriter writer = new StreamWriter(labelname, true))
-                                    {
-                                        string line = type + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
-                                        writer.WriteLine(line);
+                                        else if (objectToLabel.CompareTag("EmptyDolly"))
+                                        {
+                                            type = 2;
+                                        }
+
+                                        else if (objectToLabel.CompareTag("Speedloader"))
+                                        {
+                                            type = 3;
+                                        }
+                                    
+                                        else if (objectToLabel.CompareTag("TUG"))
+                                        {
+                                            type = 5;
+                                        }
+
+                                        else if (objectToLabel.CompareTag("Pallet"))
+                                        {
+                                            type = 6;
+                                        }
+                                        
+                                        using (StreamWriter writer = new StreamWriter(labelname, true))
+                                        {
+                                            string line = type + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
+                                            writer.WriteLine(line);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-
                 cam.targetTexture = null;
                 RenderTexture.active = null;
                 rt.Release();
             }
-
             yield return new WaitForSeconds(saveInterval);
         }
     }
