@@ -11,7 +11,7 @@ public class screenshots : MonoBehaviour
 
     private float saveInterval = 0.5f; // Save every x second
     int type;
-    List<GameObject> objectsToLabel = new List<GameObject>();
+    public List<GameObject> objectsToLabel = new List<GameObject>();
 
 
     void Start()
@@ -94,9 +94,10 @@ public class screenshots : MonoBehaviour
             foreach (GameObject go in GameObject.FindGameObjectsWithTag("picCam")) //for only one camera, comment this line
             {
                 Camera cam = go.GetComponent<Camera>();
-                //Camera cam = GetComponent<Camera>(); only one camera 
-                int resWidth = cam.pixelWidth;
-                int resHeight = cam.pixelHeight;
+                //Camera cam = GetComponent<Camera>();for  only one camera 
+                int multiplier = 4; // Adjust the multiplier as needed
+                resWidth = cam.pixelWidth * multiplier;
+                resHeight = cam.pixelHeight * multiplier;
 
 
                 RenderTexture rt = new RenderTexture(resWidth, resHeight, 32);
@@ -213,7 +214,7 @@ public class screenshots : MonoBehaviour
                         final_width = getHeightWidth(final_width, screenPoint7.x, screenPoint8.x);
                         final_height = getHeightWidth(final_height, screenPoint7.y, screenPoint8.y);
                         
-                        if (viewPos.x <= 1 && viewPos.x >= 0 && viewPos.y <= 1 && viewPos.y >= 0 && final_height >= 0.01 && final_width >= 0.01)
+                        if (viewPos.x <= 1 && viewPos.x >= 0 && viewPos.y <= 1 && viewPos.y >= 0 && final_height >= 0.01 && final_height <= 1.5 && final_width >= 0.02 && final_width <= 1.5)
                         {
                             string labelname = Application.dataPath + "/labels/" + filenumber.ToString() + ".txt";
                             RaycastHit hit;
