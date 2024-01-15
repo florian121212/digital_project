@@ -15,6 +15,7 @@ TagManager:
   - Highloader
   - EmptyDolly
   - Pallet
+  - HighloaderDown
   layers:
   - Default
   - TransparentFX

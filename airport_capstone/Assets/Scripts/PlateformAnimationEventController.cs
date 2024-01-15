@@ -7,6 +7,7 @@ public class PlateformAnimationEventController : MonoBehaviour
 {
     public PlayableDirector platformDirector; // Référence au PlayableDirector de la plateforme
     public deplacementuld deplacementULD; // Référence au script de déplacement de l'ULD
+    public GameObject highLoader; // Référence au GameObject du High Loader
 
     void Start()
     {
@@ -18,5 +19,11 @@ public class PlateformAnimationEventController : MonoBehaviour
     {
         // L'animation de la plateforme est terminée, démarrez le déplacement du Speed Loader
         deplacementULD.StartMovingSpeedLoader();
+
+        // Changer le tag du High Loader une fois la plateforme terminée
+        if (highLoader != null)
+        {
+            highLoader.tag = "HighloaderDown";
+        }
     }
 }

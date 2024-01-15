@@ -119,7 +119,7 @@ IEnumerator DoorAnimation()
     {
     // Calculez la position cible à une distance égale au double de la distance actuelle entre l'ULD et le Speed Loader
     Vector3 directionToSpeedLoader = speedLoader.position - transform.position;
-    Vector3 targetPosition = transform.position + 2 * directionToSpeedLoader;
+    Vector3 targetPosition = transform.position + 1 * directionToSpeedLoader;
 
     // Déplacez l'ULD vers la nouvelle position cible
     while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
