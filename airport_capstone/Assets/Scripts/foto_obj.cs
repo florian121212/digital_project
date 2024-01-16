@@ -5,19 +5,21 @@ using System.IO;
 
 public class foto_obj : MonoBehaviour
 {
+    // Variables for screenshot resolution, file number, camera and a list of objects 
     public GameObject[] obj;
     public Camera cam;
     int resWidth, resHeight, type;
-    public static int fname;
+    public static int filenumber = 1;
 
     void Start()
     {
-        fname = 0;
         StartCoroutine(random());
     }
 
+    // Loop to take a screenshot of each object 'nb_pics' time positionned randomly on the map
     IEnumerator random()
     {
+        // Variables for the random position of the object, for the camera, and the number of screenshot per object 
         float x, y, z, xcam, ycam, zcam;
         Transform target;
         int nb_pics = 150;
@@ -26,12 +28,14 @@ public class foto_obj : MonoBehaviour
         {
             for (int i = 0; i < obj.Length; i++)
             {
+                // Object 'obj[i]' is positionned randomly on the map on the floor
                 x = Random.Range(-30.0f, 430.0f);
                 y = obj[i].transform.position.y;
                 z = Random.Range(-240.0f, 150.0f);
                 obj[i].transform.position = new Vector3(x, y, z);
                 target = obj[i].transform;
 
+                // camera placed randomly around the object
                 xcam = Random.Range(-12.0f, 12.0f);
                 ycam = Random.Range(1.0f, 14.0f);
                 zcam = Random.Range(-12.0f, 12.0f);
@@ -47,8 +51,10 @@ public class foto_obj : MonoBehaviour
 
                 cam.transform.position = new Vector3(xcam, ycam, zcam);
 
+                // Camera is oriented on the center of the object 
                 cam.transform.LookAt(target.position);
 
+                // Take a screenshot and label it
                 takePics(obj[i]);
 
                 yield return null;
@@ -56,6 +62,7 @@ public class foto_obj : MonoBehaviour
         }
     } 
 
+    // Return the greatest value between actual_value and the distance between two points
     public float getHeightWidth(float actual_value, float point1, float point2)
     {
         float tmp_value = Mathf.Abs(point1 - point2);
@@ -68,13 +75,15 @@ public class foto_obj : MonoBehaviour
         return actual_value;
     }
 
+    // Generate a unique screenshot name based on file number
     public static string ScreenShotName()
     {
-        fname++;
-        return Application.dataPath + "/screenshots/" + fname.ToString() + ".png";
+        filenumber++;
+        return Application.dataPath + "/screenshots/" + filenumber.ToString() + ".png";
 
     }
 
+    // Take a picture with camera 'cam' with a label file containing object 'obj'
     public void takePics(GameObject obj)
     {
         int multiplier = 4; // Adjust the multiplier as needed
@@ -98,8 +107,8 @@ public class foto_obj : MonoBehaviour
         byte[] bytes = screenShot.EncodeToPNG();
 
         // Save the image
-        string filename = ScreenShotName();
-        System.IO.File.WriteAllBytes(filename, bytes);
+        string screenname = ScreenShotName();
+        System.IO.File.WriteAllBytes(screenname, bytes);
         
         var renderers = obj.GetComponentsInChildren<Renderer>();
 
@@ -112,10 +121,9 @@ public class foto_obj : MonoBehaviour
                 bounds.Encapsulate(renderers[i].bounds);
             }
 
+            // Position of the object on the screenshot
             Vector3 center = bounds.center;
-
             Vector3 viewPos = cam.WorldToViewportPoint(center);
-
             Vector3 extents = bounds.extents;
         
             float x1 = center.x + extents.x;
@@ -124,7 +132,7 @@ public class foto_obj : MonoBehaviour
             float y2 = center.y - extents.y;
             float z1 = center.z + extents.z;
             float z2 = center.z - extents.z;
-
+            
             Vector3 point1 = new Vector3(x1, y1, z1);
             Vector3 point2 = new Vector3(x1, y1, z2);
             Vector3 point3 = new Vector3(x1, y2, z1);
@@ -134,6 +142,7 @@ public class foto_obj : MonoBehaviour
             Vector3 point7 = new Vector3(x2, y2, z1);
             Vector3 point8 = new Vector3(x2, y2, z2);
 
+            // Position of vertex of the object bound on the screenshot
             Vector3 screenPoint1 = cam.WorldToViewportPoint(point1);
             Vector3 screenPoint2 = cam.WorldToViewportPoint(point2);
             Vector3 screenPoint3 = cam.WorldToViewportPoint(point3);
@@ -143,9 +152,9 @@ public class foto_obj : MonoBehaviour
             Vector3 screenPoint7 = cam.WorldToViewportPoint(point7);
             Vector3 screenPoint8 = cam.WorldToViewportPoint(point8);
 
+            // Dimention of the object on the screenshot (compare the size between each vertex)
             float final_width = Mathf.Abs(screenPoint1.x - screenPoint2.x);
             float final_height = Mathf.Abs(screenPoint1.y - screenPoint2.y);
-
             final_width = getHeightWidth(final_width, screenPoint1.x, screenPoint3.x);
             final_height = getHeightWidth(final_height, screenPoint1.y, screenPoint3.y);
             final_width = getHeightWidth(final_width, screenPoint1.x, screenPoint4.x);
@@ -201,56 +210,58 @@ public class foto_obj : MonoBehaviour
             final_width = getHeightWidth(final_width, screenPoint7.x, screenPoint8.x);
             final_height = getHeightWidth(final_height, screenPoint7.y, screenPoint8.y);
 
-            if (viewPos.x <= 1 && viewPos.x >= 0 && viewPos.y <= 1 && viewPos.y >= 0 && final_height >= 0.01 && final_width >= 0.01)
+            // Add the object to the label according to its tag
+            string labelname = Application.dataPath + "/labels/" + filenumber.ToString() + ".txt";
+
+            if (obj.CompareTag("ULD_f"))
             {
-                string labelname = Application.dataPath + "/labels/" + fname.ToString() + ".txt";
+                type = 0;
+            }
 
-                if (obj.CompareTag("ULD_f"))
-                {
-                    type = 0;
-                }
+            else if (obj.CompareTag("Door_f"))
+            {
+                type = 1;
+            }
 
-                if (obj.CompareTag("Door_f"))
-                {
-                    type = 1;
-                }
+            else if (obj.CompareTag("EmptyDolly_f"))
+            {
+                type = 2;
+            }
 
-                if (obj.CompareTag("EmptyDolly_f"))
-                {
-                    type = 2;
-                }
+            else if (obj.CompareTag("Speedloader_f"))
+            {
+                type = 3;
+            }
 
-                if (obj.CompareTag("Speedloader_f"))
-                {
-                    type = 3;
-                }
+            else if (obj.CompareTag("Highloader_f"))
+            {
+                type = 4;
+            }
 
-                if (obj.CompareTag("Highloader_f"))
-                {
-                    type = 4;
-                }
+            else if (obj.CompareTag("TUG_f"))
+            {
+                type = 5;
+            }
 
-                if (obj.CompareTag("TUG_f"))
-                {
-                    type = 5;
-                }
-                if (obj.CompareTag("Pallet_f"))
-                {
-                    type = 6;
-                }
-                if (obj.CompareTag("HighloaderDown_f"))
-                {
-                    type = 7;
-                }
+            else if (obj.CompareTag("Pallet_f"))
+            {
+                type = 6;
+            }
 
-                using (StreamWriter writer = new StreamWriter(labelname, false))
-                {
-                    string line = type.ToString() + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
-                    writer.WriteLine(line);
-                }
+            else if (obj.CompareTag("HighloaderDown_f"))
+            {
+                type = 7;
+            }
+
+            // If the file does not exist, create it
+            using (StreamWriter writer = new StreamWriter(labelname, false))
+            {
+                string line = type.ToString() + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
+                writer.WriteLine(line);
             }
         }
 
+        // Release resources and increment iteration
         cam.targetTexture = null;
         RenderTexture.active = null;
         rt.Release();

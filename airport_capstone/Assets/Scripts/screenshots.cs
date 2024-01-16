@@ -5,17 +5,21 @@ using System.IO;
 
 public class screenshots : MonoBehaviour
 {
+    // Variables for screenshot resolution, file number, and timing
     int resWidth;
     int resHeight;
-    public static int filenumber = 0;
-
-    private float saveInterval = 0.5f; // Save every x second
+    public static int filenumber = 1; //
+    public float video_end = 34.3f; // End of the screenshots in seconds
+    public float video_start = 1.6f; // Start of the screenshots in seconds
+    public float saveInterval = 0.5f; // Time between two screenshots in seconds
     int type;
-    public List<GameObject> objectsToLabel = new List<GameObject>();
+    // List to store GameObjects with specific tags for labeling
+    List<GameObject> objectsToLabel = new List<GameObject>(); 
 
 
     void Start()
     {
+        // Tags of objects to include in labeling
         string[] tagsToInclude = new string[] { "ULD", "Door", "EmptyDolly", "Speedloader", "Highloader", "TUG", "Pallet", "HighloaderDown" };
 
         foreach (string tag in tagsToInclude)
@@ -27,13 +31,15 @@ public class screenshots : MonoBehaviour
         StartCoroutine(SaveFile());
     }
 
-    public static string ScreenShotName(int width, int height)
+    // Generate a unique screenshot name based on file number
+    public static string ScreenShotName()
     {
         filenumber++;
         return Application.dataPath + "/screenshots/" + filenumber.ToString() + ".png";
 
     }
 
+    // Draw Gizmos for labeled objects in the Scene view
     void OnDrawGizmos()
     {
         foreach (GameObject objectToLabel in objectsToLabel)
@@ -70,8 +76,7 @@ public class screenshots : MonoBehaviour
         }
     }
 
-
-
+    // Return the greatest value between actual_value and the distance between two points
     public float getHeightWidth(float actual_value, float point1, float point2)
     {
         float tmp_value = Mathf.Abs(point1 - point2);
@@ -84,36 +89,43 @@ public class screenshots : MonoBehaviour
         return actual_value;
     }
 
-
-
+    // Coroutine to save screenshots and labels
     private IEnumerator SaveFile()
     {
-        yield return new WaitForSeconds(0.1f); 
-        while (true)
+        int it = 0;
+        int nb_it = Mathf.FloorToInt((video_end - video_start) / saveInterval)+1; // Number of iteration to do
+        yield return new WaitForSeconds(video_start); 
+        while (it < nb_it)
         {
             foreach (GameObject go in GameObject.FindGameObjectsWithTag("picCam")) //for only one camera, comment this line
             {
-                Camera cam = go.GetComponent<Camera>(); // comment for only one camera
-                //Camera cam = GetComponent<Camera>();for  only one camera 
-                int multiplier = 4; // Adjust the multiplier as needed
+                Camera cam = go.GetComponent<Camera>(); //for only one camera, comment this line
+                //Camera cam = GetComponent<Camera>(); for  only one camera, decomment this line
+                int multiplier = 4; // Quality of the screenshot (multiply the number of pixel in width and height)
                 resWidth = cam.pixelWidth * multiplier;
                 resHeight = cam.pixelHeight * multiplier;
 
-
+                // Create a RenderTexture with higher bit depth for better quality
                 RenderTexture rt = new RenderTexture(resWidth, resHeight, 32);
                 cam.targetTexture = rt;
                 cam.Render();
+
+                // Create a higher-quality texture
                 Texture2D screenShot = new Texture2D(resWidth, resHeight, TextureFormat.RGBA32, false);
+
+                // Read pixels from the RenderTexture
                 RenderTexture.active = rt;
                 screenShot.ReadPixels(new Rect(0, 0, resWidth, resHeight), 0, 0);
                 screenShot.Apply();
-                RenderTexture.active = null;
-                cam.targetTexture = null;
+
+                // Encode the texture to PNG
                 byte[] bytes = screenShot.EncodeToPNG();
 
-                string screenname = ScreenShotName(resWidth, resHeight);
+                // Save the image
+                string screenname = ScreenShotName();
                 System.IO.File.WriteAllBytes(screenname, bytes);
 
+                // Identification of objects present in the screenshot
                 foreach (GameObject objectToLabel in objectsToLabel)
                 {
                     var renderers = objectToLabel.GetComponentsInChildren<Renderer>();
@@ -127,6 +139,7 @@ public class screenshots : MonoBehaviour
                             bounds.Encapsulate(renderers[i].bounds);
                         }
 
+                        // Position of the object on the screenshot
                         Vector3 object_center = bounds.center;
                         Vector3 viewPos = cam.WorldToViewportPoint(object_center);
                         Vector3 object_extents = bounds.extents;
@@ -147,6 +160,7 @@ public class screenshots : MonoBehaviour
                         Vector3 point7 = new Vector3(x2, y2, z1);
                         Vector3 point8 = new Vector3(x2, y2, z2);
 
+                        // Position of vertex of the object bound on the screenshot
                         Vector3 screenPoint1 = cam.WorldToViewportPoint(point1);
                         Vector3 screenPoint2 = cam.WorldToViewportPoint(point2);
                         Vector3 screenPoint3 = cam.WorldToViewportPoint(point3);
@@ -156,9 +170,9 @@ public class screenshots : MonoBehaviour
                         Vector3 screenPoint7 = cam.WorldToViewportPoint(point7);
                         Vector3 screenPoint8 = cam.WorldToViewportPoint(point8);
 
+                        // Dimention of the object on the screenshot (compare the size between each vertex)
                         float final_width = Mathf.Abs(screenPoint1.x - screenPoint2.x);
                         float final_height = Mathf.Abs(screenPoint1.y - screenPoint2.y);
-
                         final_width = getHeightWidth(final_width, screenPoint1.x, screenPoint3.x);
                         final_height = getHeightWidth(final_height, screenPoint1.y, screenPoint3.y);
                         final_width = getHeightWidth(final_width, screenPoint1.x, screenPoint4.x);
@@ -214,10 +228,14 @@ public class screenshots : MonoBehaviour
                         final_width = getHeightWidth(final_width, screenPoint7.x, screenPoint8.x);
                         final_height = getHeightWidth(final_height, screenPoint7.y, screenPoint8.y);
                         
+                        // Check if the object is on the screenshot and great enough to label it
                         if (viewPos.x <= 1 && viewPos.x >= 0 && viewPos.y <= 1 && viewPos.y >= 0 && final_height >= 0.01 && final_width >= 0.01 )
                         {
                             bool done = false;
+                            // Add the object to the label according to its tag
                             string labelname = Application.dataPath + "/labels/" + filenumber.ToString() + ".txt";
+
+                            // Objects that cannot be hidden by the plane
                             if (objectToLabel.CompareTag("Highloader"))
                             {
                                 type = 4;
@@ -236,6 +254,7 @@ public class screenshots : MonoBehaviour
 
                             if (done)
                             {
+                                // If the file does not exist, create it
                                 using (StreamWriter writer = new StreamWriter(labelname, true))
                                 {
                                     string line = type + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
@@ -246,6 +265,7 @@ public class screenshots : MonoBehaviour
                             {
                                 RaycastHit hit;
 
+                                // Check if the object is hidden by the plane
                                 if (Physics.Raycast(cam.transform.position, object_center - cam.transform.position, out hit))
                                 {
 
@@ -276,6 +296,7 @@ public class screenshots : MonoBehaviour
                                             type = 6;
                                         }
                                         
+                                        // If the file does not exist, create it
                                         using (StreamWriter writer = new StreamWriter(labelname, true))
                                         {
                                             string line = type + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
@@ -287,10 +308,13 @@ public class screenshots : MonoBehaviour
                         }
                     }
                 }
+                
+                // Release resources and increment iteration
                 cam.targetTexture = null;
                 RenderTexture.active = null;
                 rt.Release();
             }
+            it = it + 1;
             yield return new WaitForSeconds(saveInterval);
         }
     }
