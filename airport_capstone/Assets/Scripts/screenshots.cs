@@ -8,7 +8,7 @@ public class screenshots : MonoBehaviour
     // Variables for screenshot resolution, file number, and timing
     int resWidth;
     int resHeight;
-    public static int filenumber = 1; //
+    public static int filenumber = 1; 
     public float video_end = 34.3f; // End of the screenshots in seconds
     public float video_start = 1.6f; // Start of the screenshots in seconds
     public float saveInterval = 0.5f; // Time between two screenshots in seconds
@@ -22,6 +22,7 @@ public class screenshots : MonoBehaviour
         // Tags of objects to include in labeling
         string[] tagsToInclude = new string[] { "ULD", "Door", "EmptyDolly", "Speedloader", "Highloader", "TUG", "Pallet", "HighloaderDown" };
 
+        // filling of the list with all objects to label
         foreach (string tag in tagsToInclude)
         {
             GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag(tag);
@@ -93,7 +94,7 @@ public class screenshots : MonoBehaviour
     private IEnumerator SaveFile()
     {
         int it = 0;
-        int nb_it = Mathf.FloorToInt((video_end - video_start) / saveInterval)+1; // Number of iteration to do
+        int nb_it = Mathf.FloorToInt((video_end - video_start) / saveInterval)+1; // Number of iteration to do (number of screen per camera)
         yield return new WaitForSeconds(video_start); 
         while (it < nb_it)
         {
@@ -151,6 +152,7 @@ public class screenshots : MonoBehaviour
                         float z1 = object_center.z + object_extents.z;
                         float z2 = object_center.z - object_extents.z;
 
+                        // Position of the vertices of the object in the scene
                         Vector3 point1 = new Vector3(x1, y1, z1);
                         Vector3 point2 = new Vector3(x1, y1, z2);
                         Vector3 point3 = new Vector3(x1, y2, z1);
@@ -160,7 +162,7 @@ public class screenshots : MonoBehaviour
                         Vector3 point7 = new Vector3(x2, y2, z1);
                         Vector3 point8 = new Vector3(x2, y2, z2);
 
-                        // Position of vertex of the object bound on the screenshot
+                        // Position of vertices of the object on the screenshot
                         Vector3 screenPoint1 = cam.WorldToViewportPoint(point1);
                         Vector3 screenPoint2 = cam.WorldToViewportPoint(point2);
                         Vector3 screenPoint3 = cam.WorldToViewportPoint(point3);
@@ -257,6 +259,7 @@ public class screenshots : MonoBehaviour
                                 // If the file does not exist, create it
                                 using (StreamWriter writer = new StreamWriter(labelname, true))
                                 {
+                                    // Add the label of the object to the file
                                     string line = type + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
                                     writer.WriteLine(line);
                                 }
@@ -299,6 +302,7 @@ public class screenshots : MonoBehaviour
                                         // If the file does not exist, create it
                                         using (StreamWriter writer = new StreamWriter(labelname, true))
                                         {
+                                            // Add the label of the object to the file
                                             string line = type + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
                                             writer.WriteLine(line);
                                         }

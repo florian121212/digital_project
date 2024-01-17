@@ -133,6 +133,7 @@ public class foto_obj : MonoBehaviour
             float z1 = center.z + extents.z;
             float z2 = center.z - extents.z;
             
+            // Position of the vertices of the object in the scene
             Vector3 point1 = new Vector3(x1, y1, z1);
             Vector3 point2 = new Vector3(x1, y1, z2);
             Vector3 point3 = new Vector3(x1, y2, z1);
@@ -142,7 +143,7 @@ public class foto_obj : MonoBehaviour
             Vector3 point7 = new Vector3(x2, y2, z1);
             Vector3 point8 = new Vector3(x2, y2, z2);
 
-            // Position of vertex of the object bound on the screenshot
+            // Position of vertices of the object on the screenshot
             Vector3 screenPoint1 = cam.WorldToViewportPoint(point1);
             Vector3 screenPoint2 = cam.WorldToViewportPoint(point2);
             Vector3 screenPoint3 = cam.WorldToViewportPoint(point3);
@@ -256,6 +257,7 @@ public class foto_obj : MonoBehaviour
             // If the file does not exist, create it
             using (StreamWriter writer = new StreamWriter(labelname, false))
             {
+                // Add the label of the object to the file
                 string line = type.ToString() + " " + viewPos.x.ToString() + " " + (1-viewPos.y).ToString() + " " + final_width.ToString() + " " + final_height.ToString();
                 writer.WriteLine(line);
             }
